@@ -29,7 +29,10 @@ python ppo_probe.py --epochs 16              # 只改 num_learning_epochs
 - 运行：4 个并行环境，每轮每环境 100 步，共 300 轮，随机种子 0，单次运行
 - 指标：第 300 轮的平均回合回报、策略标准差均值、值函数损失
 
-## 结果摘要
+## 结果
+
+
+六个参数各取三档，`clip_param` 另加两档，共 15 组运行。
 
 | 参数 | 三档取值 | 第 300 轮回报 |
 |---|---|---|
@@ -40,7 +43,7 @@ python ppo_probe.py --epochs 16              # 只改 num_learning_epochs
 | `entropy_coef` | 0.0 / 0.01 / 0.1 | 53.70 / 48.30 / 24.85 |
 | `gamma` | 0.95 / 0.99 / 0.999 | 152.90 / 48.30 / 34.40 |
 
-每行中间一档为基线。结果为单种子、单次运行，只说明该设置下的趋势。
+结果为单种子、单次运行，只说明该设置下的趋势。
 
 ## 文件
 
@@ -49,3 +52,4 @@ python ppo_probe.py --epochs 16              # 只改 num_learning_epochs
 | `report.md` | 完整实验记录：条件、方法、结果、逐项说明、限制 |
 | `ppo_probe.py` | 实验脚本，把 `act` → 环境步进 → `update` 串成一个循环并打印指标 |
 | `sweep_results.txt` | 全部 15 组运行的原始输出 |
+| `advantage_norm.diff` | 优势标准化的补丁（针对 `algorithms/ppo.py`，共两行） |

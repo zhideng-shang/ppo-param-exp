@@ -102,4 +102,20 @@ TAG=gamma0.999 clip=0.2 lr=0.0003 epochs=4 mini=4 entropy=0.01 gamma=0.999 lam=0
   it= 250 surrogate=+0.0012 value=152.87 回报=26.95 std=0.604
   it= 300 surrogate=-0.0046 value=180.18 回报=34.40 std=0.561
 
+TAG=clip0.01 clip=0.01 lr=0.0003 epochs=4 mini=4 entropy=0.01 gamma=0.99 lam=0.95 grad_norm=1.0 iters=300 steps=100 seed=0
+  it=  50 surrogate=-0.0008 value=0.37 回报=1.40 std=1.009
+  it= 100 surrogate=-0.0001 value=0.32 回报=1.60 std=1.002
+  it= 150 surrogate=+0.0028 value=0.37 回报=1.90 std=0.969
+  it= 200 surrogate=+0.0007 value=0.32 回报=2.20 std=0.875
+  it= 250 surrogate=+0.0013 value=0.30 回报=2.10 std=0.776
+  it= 300 surrogate=+0.0030 value=0.43 回报=2.30 std=0.696
+
+TAG=clip1.0 clip=1.0 lr=0.0003 epochs=4 mini=4 entropy=0.01 gamma=0.99 lam=0.95 grad_norm=1.0 iters=300 steps=100 seed=0
+  it=  50 surrogate=-0.0060 value=0.38 回报=1.45 std=0.989
+  it= 100 surrogate=-0.0119 value=4.68 回报=5.80 std=0.793
+  it= 150 surrogate=-0.0058 value=43.40 回报=17.00 std=0.688
+  it= 200 surrogate=-0.0001 value=62.59 回报=17.10 std=0.618
+  it= 250 surrogate=-0.0023 value=110.57 回报=32.65 std=0.563
+  it= 300 surrogate=-0.0202 value=136.08 回报=26.65 std=0.519
+
 ALL_DONE

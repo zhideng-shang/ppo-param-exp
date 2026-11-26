@@ -24,7 +24,6 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from rsl_rl_isrc.env import VecEnv
 from rsl_rl_isrc.modules import ActorCritic
-from rsl_rl_isrc.algorithms.ppo import PPO
 
 BASE = dict(
     num_learning_epochs=4,
@@ -112,7 +111,14 @@ def main():
     ap.add_argument("--steps", type=int, default=100)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--tag", type=str, default="baseline")
+    ap.add_argument("--algo", choices=["orig", "advnorm"], default="orig",
+                    help="orig=原版 PPO；advnorm=加了优势标准化的版本")
     args = ap.parse_args()
+
+    if args.algo == "advnorm":
+        from rsl_rl_isrc.algorithms.ppo_advnorm import PPO
+    else:
+        from rsl_rl_isrc.algorithms.ppo import PPO
 
     torch.manual_seed(args.seed)
     env = TinyEnv(num_envs=4, max_episode_length=200, seed=args.seed)
@@ -141,8 +147,8 @@ def main():
     alg = PPO(ac, device="cpu", **alg_kwargs)
     alg.init_storage(env.num_envs, args.steps, [env.num_obs], [None], [env.num_actions])
 
-    print("TAG={} clip={} lr={} epochs={} mini={} entropy={} gamma={} lam={} grad_norm={} iters={} steps={} seed={}".format(
-        args.tag, alg.clip_param, alg.learning_rate, alg.num_learning_epochs, alg.num_mini_batches,
+    print("TAG={} algo={} clip={} lr={} epochs={} mini={} entropy={} gamma={} lam={} grad_norm={} iters={} steps={} seed={}".format(
+        args.tag, args.algo, alg.clip_param, alg.learning_rate, alg.num_learning_epochs, alg.num_mini_batches,
         alg.entropy_coef, alg.gamma, alg.lam, alg.max_grad_norm, args.iters, args.steps, args.seed))
 
     obs = env.get_observations()
